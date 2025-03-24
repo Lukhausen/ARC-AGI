@@ -1,4 +1,3 @@
-
 // Internal state.
 var CURRENT_INPUT_GRID = new Grid(3, 3);
 var CURRENT_OUTPUT_GRID = new Grid(3, 3);
@@ -85,6 +84,59 @@ function copyFromInput() {
     CURRENT_OUTPUT_GRID = convertSerializedGridToGridObject(CURRENT_INPUT_GRID.grid);
     syncFromDataGridToEditionGrid();
     $('#output_grid_size').val(CURRENT_OUTPUT_GRID.height + 'x' + CURRENT_OUTPUT_GRID.width);
+}
+
+function drawFromArray() {
+    try {
+        // Get the input value and parse it
+        var inputText = $('#array_input').val();
+        
+        // Basic validation
+        if (!inputText || inputText.trim() === '') {
+            errorMsg('Please enter a valid array.');
+            return;
+        }
+        
+        // Try to parse the JSON array
+        var arrayData;
+        try {
+            // Replace single quotes with double quotes if needed
+            inputText = inputText.replace(/'/g, '"');
+            arrayData = JSON.parse(inputText);
+        } catch (e) {
+            errorMsg('Invalid array format. Please use format like [[0,1,2],[3,4,5]]');
+            return;
+        }
+        
+        // Validate the array structure
+        if (!Array.isArray(arrayData) || !arrayData.length || !Array.isArray(arrayData[0])) {
+            errorMsg('Invalid array format. Please use a 2D array: [[0,1,2],[3,4,5]]');
+            return;
+        }
+        
+        // Check if all rows have same length
+        var width = arrayData[0].length;
+        for (var i = 0; i < arrayData.length; i++) {
+            if (!Array.isArray(arrayData[i]) || arrayData[i].length !== width) {
+                errorMsg('All rows must have the same length.');
+                return;
+            }
+        }
+        
+        // Create a new grid with the array data
+        var height = arrayData.length;
+        CURRENT_OUTPUT_GRID = new Grid(height, width, arrayData);
+        
+        // Update the size field
+        $('#output_grid_size').val(height + 'x' + width);
+        
+        // Sync the data to the UI
+        syncFromDataGridToEditionGrid();
+        
+        infoMsg('Array successfully converted to grid!');
+    } catch (error) {
+        errorMsg('Error processing array: ' + error.message);
+    }
 }
 
 function fillPairPreview(pairId, inputGrid, outputGrid) {

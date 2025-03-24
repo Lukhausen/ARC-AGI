@@ -167,3 +167,18 @@ input, button {
 #modal input {
     margin-left: 70px;
 }
+
+.grid_size_field {
+    width: 50px;
+}
+
+.array_input_field {
+    width: 200px;
+    margin-left: 10px;
+}
+
+#array_input_control {
+    width: 100%;
+    float: left;
+    margin-bottom: 10px;
+}

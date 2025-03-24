@@ -4,8 +4,8 @@ import shutil
 
 # Define paths
 training_dir = "../data/training"
-output_dir = "../data/modified_training"
-replacement_output = "Searching this. Find out what to do."
+output_dir = "../data/training_wo_output"
+replacement_output = "Searching this. Find out how to create this output."
 
 # Clear output directory if it exists
 if os.path.exists(output_dir):

@@ -63,6 +63,12 @@
                                 <input type="text" id="output_grid_size" class="grid_size_field" name="size" value="3x3">
                                 <button onclick="resizeOutputGrid()" id="resize_btn">Resize</button>
                             </div>
+                            
+                            <div id="array_input_control">
+                                <label for="array_input">Draw output from Array: </label>
+                                <input type="text" id="array_input" class="array_input_field" name="array_input" placeholder="[[0,1,2],[3,4,5]]">
+                                <button onclick="drawFromArray()" id="draw_array_btn">Draw</button>
+                            </div>
 
                             <button onclick="copyFromInput()">Copy from input</button>
                             <button onclick="resetOutputGrid()">Reset grid</button>
